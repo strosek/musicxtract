@@ -22,13 +22,16 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 
+import java.util.LinkedList;
+
+
 public class Part {
   private LinkedList<Note> m_notes;
   private String           m_id;
   private int              m_notesDurationSum;
   private int              m_measureNotesDurationSum;
 
-  private int              m_musicXmlNode;
+  private MusicXmlNode     m_musicXmlNode;
 
   public Part(String id) {
     m_notes = new LinkedList<Note>();
@@ -43,7 +46,7 @@ public class Part {
     return m_musicXmlNode;
   }
 
-  private buildMusicXmlNode() {
+  private void buildMusicXmlNode() {
   }
 }
 
