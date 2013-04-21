@@ -1,6 +1,7 @@
 public class MusicXmlTest {
   public static void main(String[] args) {
     String musicXmlString = new String();
+    Score score = new Score();
     musicXmlString = 
         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" + 
         "<!DOCTYPE score-partwise PUBLIC\n" +

@@ -117,10 +117,10 @@ public class Note {
   public static final int PITCH_B8 = 107;
   
 
-  private int    m_pitch;
-  private int    m_duration;
-  private String m_type;
-  private bool   m_isSilence;
+  private int     m_pitch;
+  private int     m_duration;
+  private String  m_type;
+  private boolean m_isSilence;
 
   private MusicXmlNode m_musicXmlNode;
   
