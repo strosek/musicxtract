@@ -25,14 +25,23 @@ public class Part {
 
   public void buildMusicXmlNode() {
     m_musicXmlNode.setName("part");
+    m_musicXmlNode.addAttribute("id", m_id);
 
-    Integer measureNo;
-    MusicXmlNode measure("measure");
+    Integer measureNo = 1;
+    MusicXmlNode measure = new MusicXmlNode("measure");
     measure.addAttribute("number", measureNo.toString());
 
-    m_musicXmlNode.addChild(measure);
-    for (note : m_notes) {
-      m_musicXmlNode.addChild(note.getXmlNode());
+    int notesTotalDuration = 0;
+    int noteDuration;
+
+    for (Note note : m_notes) {
+      if (note.getDuration() < measureDuration)
+        m_musicXmlNode.addChild(note.getXmlNode());
+      else {
+        noteDuration = note.getDuration();
+        
+
+      }
     }
 
     m_musicXmlNode.addChild(measure);

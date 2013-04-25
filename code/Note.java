@@ -132,6 +132,24 @@ public class Note {
     m_musicXmlNode = new MusicXmlNode();
   }
 
+  public int getDuration() {
+    return m_duration;
+  }
+  public int getPitch() {
+    return m_pitch;
+  }
+  public String getType() {
+    return m_type;
+  }
+  public boolean isSilence() {
+    return m_isSilece();
+  }
+  public ArrayList<Note> split() {
+    ArrayList<Note> splittedNotes;
+
+    return splittedNotes;
+  }
+
   public MusicXmlNode getMusicXmlNode() {
     buildMusicXmlNode();
 
