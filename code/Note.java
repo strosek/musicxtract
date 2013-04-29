@@ -1,4 +1,4 @@
-//Soy Freddy
+//Soy Freddy otra vez
 public class Note {
   public static final int PITCH_C0 =   0;
   public static final int PITCH_C0S =  1;
