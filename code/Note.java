@@ -1,4 +1,3 @@
-//Soy Freddy otra vez
 public class Note {
   public static final int PITCH_C0 =   0;
   public static final int PITCH_C0S =  1;
@@ -119,8 +118,10 @@ public class Note {
 
 
   private int     m_pitch;
+  private int     m_alter;
   private int     m_duration;
   private String  m_type;
+  private boolean m_isDotted;
   private boolean m_isSilence;
 
   private MusicXmlNode m_musicXmlNode;
@@ -133,22 +134,44 @@ public class Note {
     m_musicXmlNode = new MusicXmlNode();
   }
 
+  public void setPitch(int pitch) {
+    if (pitch >= C0 && pitch <= B8)
+      m_pitch = pitch;
+  }
+  public void setAlter(int alter) {
+    if (alter >= -2 && alter <= 2)
+      m_alter = alter;
+  }
+  public void setDuration(int duration) {
+    m_duration = duration;
+  }
+  public void setType(String type) {
+    m_type = type;
+  }
+  public void setIsDotted(boolean isDotted) {
+    m_isDotted = isDotted;
+  }
+  public void setIsSilence(boolean isSilence) {
+    m_isSilence = silence;
+  }
+
   public int getDuration() {
     return m_duration;
   }
   public int getPitch() {
     return m_pitch;
   }
+  public int getAlter() {
+    return m_alter;
+  }
   public String getType() {
     return m_type;
   }
+  public boolean getIsDotted() {
+    return m_isDotted;
+  }
   public boolean isSilence() {
     return m_isSilece();
-  }
-  public ArrayList<Note> split() {
-    ArrayList<Note> splittedNotes;
-
-    return splittedNotes;
   }
 
   public MusicXmlNode getMusicXmlNode() {
@@ -158,6 +181,129 @@ public class Note {
   }
 
   private void buildMusicXmlNode() {
+    MusicXmlNode pitch = new MusicXmlNode("pitch");
+    MusicXmlNode step = new MusicXmlNode("step");
+    switch (m_pitch) {
+      case C0 : case C0S :
+      case C1 : case C1S :
+      case C2 : case C2S :
+      case C3 : case C3S :
+      case C4 : case C4S :
+      case C5 : case C5S :
+      case C6 : case C6S :
+      case C7 : case C7S :
+      case C8 : case C8S :
+        step.setText("C");
+        break;
+      case D0 : case D0S :
+      case D1 : case D1S :
+      case D2 : case D2S :
+      case D3 : case D3S :
+      case D4 : case D4S :
+      case D5 : case D5S :
+      case D6 : case D6S :
+      case D7 : case D7S :
+      case D8 : case D8S :
+        step.setText("D");
+        break;
+      case E0 :
+      case E1 :
+      case E2 :
+      case E3 :
+      case E4 :
+      case E5 :
+      case E6 :
+      case E7 :
+      case E8 :
+        step.setText("E");
+        break;
+      case F0 : case F0S :
+      case F1 : case F1S :
+      case F2 : case F2S :
+      case F3 : case F3S :
+      case F4 : case F4S :
+      case F5 : case F5S :
+      case F6 : case F6S :
+      case F7 : case F7S :
+      case F8 : case F8S :
+        step.setText("F");
+        break;
+      case G0 : case G0S :
+      case G1 : case G1S :
+      case G2 : case G2S :
+      case G3 : case G3S :
+      case G4 : case G4S :
+      case G5 : case G5S :
+      case G6 : case G6S :
+      case G7 : case G7S :
+      case G8 : case G8S :
+        step.setText("G");
+        break;
+      case A0 : case A0S :
+      case A1 : case A1S :
+      case A2 : case A2S :
+      case A3 : case A3S :
+      case A4 : case A4S :
+      case A5 : case A5S :
+      case A6 : case A6S :
+      case A7 : case A7S :
+      case A8 : case A8S :
+        step.setText("A");
+        break;
+      case B0 :
+      case B1 :
+      case B2 :
+      case B3 :
+      case B4 :
+      case B5 :
+      case B6 :
+      case B7 :
+      case B8 :
+        step.setText("B");
+        break;
+    }
+    pitch.addChild(step);
+
+    MusicXmlNode octave = new MusicXmlNode("octave");
+    
+    if (m_pitch <= B0) {
+      octave.setText("0");
+    }
+    else if (m_pitch <= B1) {
+      octave.setText("1");
+    }
+    else if (m_pitch <= B2) {
+      octave.setText("2");
+    }
+    else if (m_pitch <= B3) {
+      octave.setText("3");
+    }
+    else if (m_pitch <= B4) {
+      octave.setText("4");
+    }
+    else if (m_pitch <= B5) {
+      octave.setText("5");
+    }
+    else if (m_pitch <= B6) {
+      octave.setText("6");
+    }
+    else if (m_pitch < B7) {
+      octave.setText("7");
+    }
+    else if (m_pitch <= B8) {
+      octave.setText("8");
+    }
+    pitch.addChild(octave);
+
+    m_musicXmlNode.addChild(pitch);
+
+    MusicXmlNode duration = new MusicXmlNode("duration");
+    duration.setText(Integer(m_duration).toString);
+    m_musicXmlNode.addChild(duration);
+
+    MusicXmlNode type = new MusicXmlNode("type");
+    type.setText(m_type);
+    m_musicXmlNode.addChild(type);
   }
 }
 
