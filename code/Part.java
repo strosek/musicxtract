@@ -6,6 +6,7 @@ public class Part {
   private String           m_name;
   private String           m_id;
   private String           m_instrument;
+  private int              m_measureDuration;
 
   private MusicXmlNode     m_musicXmlNode;
 
@@ -35,12 +36,10 @@ public class Part {
     int noteDuration;
 
     for (Note note : m_notes) {
-      if (note.getDuration() < measureDuration)
-        m_musicXmlNode.addChild(note.getXmlNode());
+      if (note.getDuration() < m_measureDuration)
+        m_musicXmlNode.addChild(note.getMusicXmlNode());
       else {
         noteDuration = note.getDuration();
-        
-
       }
     }
 
