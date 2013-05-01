@@ -124,8 +124,6 @@ public class Note {
   private boolean m_isDotted;
   private boolean m_isRest;
 
-  private MusicXmlNode m_musicXmlNode;
-
   public Note() {
     m_pitch = PITCH_C4;
     m_alter = 0;
@@ -133,8 +131,6 @@ public class Note {
     m_type = "quarter";
     m_isDotted = false;
     m_isRest = false;
-
-    m_musicXmlNode = new MusicXmlNode();
   }
   
   public Note(int pitch, int alter, int duration, String type, 
@@ -145,8 +141,6 @@ public class Note {
     m_type = type;
     m_isDotted = isDotted;
     m_isRest = isRest;
-
-    m_musicXmlNode = new MusicXmlNode();
   }
   public Note(boolean isRest, int duration, String type, 
               boolean isDotted) {
@@ -154,8 +148,6 @@ public class Note {
     m_duration = duration;
     m_type = type;
     m_isDotted = isDotted;
-
-    m_musicXmlNode = new MusicXmlNode();
   }
 
   public void setPitch(int pitch) {
@@ -203,13 +195,9 @@ public class Note {
   }
 
   public MusicXmlNode getMusicXmlNode() {
-    buildMusicXmlNode();
+    MusicXmlNode node = new MusicXmlNode();
+    node.setName("note");
 
-    return m_musicXmlNode;
-  }
-
-  private void buildMusicXmlNode() {
-    m_musicXmlNode.setName("note");
     if (!m_isRest) {
       MusicXmlNode pitch = new MusicXmlNode("pitch");
 
@@ -393,25 +381,26 @@ public class Note {
       }
       pitch.addChild(octave);
 
-      m_musicXmlNode.addChild(pitch);
+      node.addChild(pitch);
     }
     else {
       MusicXmlNode rest = new MusicXmlNode("rest");
-      m_musicXmlNode.addChild(rest);
+      node.addChild(rest);
     }
     
     MusicXmlNode duration = new MusicXmlNode("duration");
     duration.setText(Integer.toString(m_duration));
-    m_musicXmlNode.addChild(duration);
+    node.addChild(duration);
 
     MusicXmlNode type = new MusicXmlNode("type");
     type.setText(m_type);
-    m_musicXmlNode.addChild(type);
+    node.addChild(type);
     
     if (m_isDotted) {
       MusicXmlNode dot = new MusicXmlNode("dot");
-      m_musicXmlNode.addChild(dot);
+      node.addChild(dot);
     }
+    return node;
   }
 }
 
