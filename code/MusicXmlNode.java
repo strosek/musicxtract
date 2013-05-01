@@ -64,7 +64,8 @@ public class MusicXmlNode {
       if (attribute.getValue().length() != 0)
         nodeString += "=\"" + attribute.getValue() + "\"";
     }
-    nodeString += ">";
+    if (m_text.length() > 0 || !m_children.isEmpty())
+      nodeString += ">";
     
     if (m_text.length() > 0)
       nodeString += m_text;
