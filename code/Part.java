@@ -6,44 +6,142 @@ public class Part {
   private String           m_name;
   private String           m_id;
   private String           m_instrument;
-  private int              m_measureDuration;
+  private int              m_measureDivisions;
+  private int              m_fifths;
+  private boolean          m_isModeMajor;
+  private int              m_beats;
+  private int              m_beatType;
+  private String           m_clefSign;
+  private int              m_clefLine;
+  private int              m_transposeDiatonic;
+  private int              m_transposeChromatic;
 
-  private MusicXmlNode     m_musicXmlNode;
+  public Part () {
+    m_notes = new LinkedList<Note>();
+    m_name = new String();
+    m_id = new String();
+    m_instrument = new String();
+    m_measureDivisions = 12;
+    m_fifths = 0;
+    m_isModeMajor = true;
+    m_beats = 4;
+    m_beatType = 4;
+    m_clefSign = "G";
+    m_clefLine = 2;
+    m_transposeDiatonic = 0;
+    m_transposeChromatic = 0;
+  }
+  
+  public void setName(String name) {
+    m_name = name;
+  }
+  public void setId(String id) {
+    m_id = id;
+  }
+  public void setInstrument(String instrument) {
+    m_instrument = instrument;
+  }
+  public void setMeasureDivisions(int divisions) {
+    m_measureDivisions = divisions;
+  }
+  public void setFifths(int fifths) {
+    m_fifths = fifths;
+  }
+  public void setModeMajor(boolean isMajor) {
+    m_isModeMajor = isMajor;
+  }
+  public void setBeats(int beats) {
+    m_beats = beats;
+  }
+  public void setBeatType(int beatType) {
+    m_beatType = beatType;
+  }
+  public void setClefSign(String sign) {
+    m_clefSign = sign;
+  }
+  public void setClefLine(int line) {
+    m_clefLine = line;
+  }
+  public void setTransposeDiatonic(int transpose) {
+    m_transposeDiatonic = transpose;
+  }
+  public void setTransposeChromatic(int transpose) {
+    m_transposeChromatic = transpose;
+  }
+  
+  public String getName() {
+    return m_name;
+  }
+  public String getId() {
+    return m_id;
+  }
+  public String getInstrument() {
+    return m_instrument;
+  }
+  public int getMesureDivisions() {
+    return m_measureDivisions;
+  }
+  public int getFifths() {
+    return m_fifths;
+  }
+  public boolean isModeMajor() {
+    return m_isModeMajor;
+  }
+  public int getBeats() {
+    return m_beats;
+  }
+  public int getBeatType() {
+    return m_beatType;
+  }
+  public String getClefSign() {
+    return m_clefSign;
+  }
+  public int getClefLine() {
+    return m_clefLine;
+  }
+  public int getTransposeDiatonic() {
+    return m_transposeDiatonic;
+  }
+  public int getTransposeChromatic() {
+    return m_transposeChromatic;
+  }
+  public LinkedList<Note> getNotes() {
+    return m_notes;
+  }
 
   public void insertNote(Note note) {
     m_notes.add(note);
   }
 
   public MusicXmlNode getMusicXmlNode(){
-    buildMusicXmlNode();
+    MusicXmlNode node = new MusicXmlNode("part");
+    node.addAttribute("id", m_id);
 
-    return m_musicXmlNode;
-  }
-
-  public LinkedList<Note> getNotes() {
-    return m_notes;
-  }
-
-  public void buildMusicXmlNode() {
-    m_musicXmlNode.setName("part");
-    m_musicXmlNode.addAttribute("id", m_id);
-
-    Integer measureNo = 1;
+    int measureNo = 1;
     MusicXmlNode measure = new MusicXmlNode("measure");
-    measure.addAttribute("number", measureNo.toString());
+    measure.addAttribute("number", Integer.toString(measureNo));
+    
+    if (measureNo == 1) {
+      MusicXmlNode attributes = new MusicXmlNode("attributes");
+      
+    }
 
     int notesTotalDuration = 0;
     int noteDuration;
 
     for (Note note : m_notes) {
-      if (note.getDuration() < m_measureDuration)
-        m_musicXmlNode.addChild(note.getMusicXmlNode());
+      if (note.getDuration() + notesTotalDuration < m_measureDivisions)
+        node.addChild(note.getMusicXmlNode());
       else {
         noteDuration = note.getDuration();
       }
     }
 
-    m_musicXmlNode.addChild(measure);
+    node.addChild(measure);
+    measure.clearChildren();
+
+    return node;
   }
+
 }
 
