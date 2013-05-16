@@ -69,7 +69,7 @@ public class Part {
     m_transposeChromatic = transpose;
   }
   
-  public void insertNote(Note note) {
+  public void addNote(Note note) {
     m_notes.add(note);
   }
 
@@ -176,15 +176,45 @@ public class Part {
     int noteDuration;
 
     for (Note note : m_notes) {
-      if (note.getDuration() + notesTotalDuration < m_measureDivisions)
-        node.addChild(note.getMusicXmlNode());
+      System.out.println("::: DEBUG ::: notesTotalDuration: " +
+                         notesTotalDuration + " measureDivisions: " +
+                         m_measureDivisions);
+      if (note.getDuration() + notesTotalDuration <= m_measureDivisions) {
+        measure.addChild(note.getMusicXmlNode());
+        notesTotalDuration += note.getDuration();
+      }
       else {
-        noteDuration = note.getDuration();
+        Note startNote = new Note(note);
+        startNote.setDuration(m_measureDivisions - notesTotalDuration);
+        startNote.setTie(Note.TIE_START);
+        measure.addChild(startNote.getMusicXmlNode());
+        
+        System.out.println("::: DEBUG ::: cleaning attributes, with split");
+        ++measureNo;
+        measure.clearAttributes();
+        measure.clearChildren();
+        measure.addAttribute("number", Integer.toString(measureNo));
+
+        Note stopNote = new Note(note);
+        stopNote.setDuration(note.getDuration() - startNote.getDuration());
+        stopNote.setTie(Note.TIE_STOP);
+        measure.addChild(stopNote.getMusicXmlNode());
+        
+        notesTotalDuration = stopNote.getDuration();
+      }
+      
+      if (m_measureDivisions == notesTotalDuration) {
+        node.addChild(measure);
+        notesTotalDuration = 0;
+        ++measureNo;
+        System.out.println("::: DEBUG ::: cleaning attributes");
+        measure.clearAttributes();
+        measure.clearChildren();
+        measure.addAttribute("number", Integer.toString(measureNo));
       }
     }
 
     node.addChild(measure);
-//     measure.clearChildren();
 
     return node;
   }

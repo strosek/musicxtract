@@ -23,8 +23,8 @@ public class TestImage {
     int red, green, blue;
     int previousLuminosity = 0, currentLuminosity = 0;
     int deltaLuminosity = 0;
-    for (int i = 0; i < image.getHeight(); ++i) {
-      for (int j = 0; j < image.getWidth(); ++j) {
+    for (int j = 0; j < image.getWidth(); ++j) {
+      for (int i = 0; i < image.getHeight(); ++i) {
         red =   image.getRGB(j, i) & 0xFF0000;
         red >>= 16;
         green = image.getRGB(j, i) &   0xFF00;
