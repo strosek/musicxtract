@@ -11,6 +11,10 @@ public class MusicXmlAttribute {
     m_name = name;
     m_value = value;
   }
+  public MusicXmlAttribute(MusicXmlAttribute attribute) {
+    m_name = attribute.getName();
+    m_value = attribute.getValue();
+  }
 
   public void setName(String name) {
     m_name = name;

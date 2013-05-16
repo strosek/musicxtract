@@ -20,6 +20,12 @@ public class MusicXmlNode {
     m_attributes = new LinkedList<MusicXmlAttribute>();
     m_children = new LinkedList<MusicXmlNode>();
   }
+  public MusicXmlNode(MusicXmlNode node) {
+    m_name = new String(node.getName());
+    m_text = new String(node.getText());
+    m_attributes = new LinkedList<MusicXmlAttribute>(node.getAttributes());
+    m_children = new LinkedList<MusicXmlNode>(node.getChildren());
+  }
 
   public void setName(String name) {
     m_name = name;

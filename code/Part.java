@@ -31,6 +31,21 @@ public class Part {
     m_transposeDiatonic = 0;
     m_transposeChromatic = 0;
   }
+  public Part(Part part) {
+    m_notes = new LinkedList<Note>(part.getNotes());
+    m_name = new String(part.getName());
+    m_id = new String(part.getId());
+    m_instrument = new String(part.getInstrument());
+    m_measureDivisions = part.getMeasureDivisions();
+    m_fifths = part.getFifths();
+    m_isModeMajor = part.isModeMajor();
+    m_beats = part.getBeats();
+    m_beatType = part.getBeatType();
+    m_clefSign = part.getClefSign();
+    m_clefLine = part.getClefLine();
+    m_transposeDiatonic = part.getTransposeDiatonic();
+    m_transposeChromatic = part.getTransposeChromatic();
+  }
   
   public void setName(String name) {
     m_name = name;
@@ -82,7 +97,7 @@ public class Part {
   public String getInstrument() {
     return m_instrument;
   }
-  public int getMesureDivisions() {
+  public int getMeasureDivisions() {
     return m_measureDivisions;
   }
   public int getFifths() {
