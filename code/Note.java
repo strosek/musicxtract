@@ -115,6 +115,12 @@ public class Note {
   public static final int PITCH_A8 = 105;
   public static final int PITCH_A8S =106;
   public static final int PITCH_B8 = 107;
+  
+  
+  
+  public static final int TIE_NONE =  0;
+  public static final int TIE_START = 1;
+  public static final int TIE_STOP =  2;
 
 
   private int     m_pitch;
@@ -123,6 +129,7 @@ public class Note {
   private String  m_type;
   private boolean m_isDotted;
   private boolean m_isRest;
+  private int     m_tie;
 
   public Note() {
     m_pitch = PITCH_C4;
@@ -131,23 +138,35 @@ public class Note {
     m_type = "quarter";
     m_isDotted = false;
     m_isRest = false;
+    m_tie = TIE_NONE;
   }
   
   public Note(int pitch, int alter, int duration, String type, 
-              boolean isDotted, boolean isRest) {
+              boolean isDotted, boolean isRest, int tie) {
     m_pitch = pitch;
     m_alter = alter;
     m_duration = duration;
     m_type = type;
     m_isDotted = isDotted;
     m_isRest = isRest;
+    m_tie = tie;
   }
   public Note(boolean isRest, int duration, String type, 
-              boolean isDotted) {
+              boolean isDotted, int tie) {
     m_isRest = isRest;
     m_duration = duration;
     m_type = type;
     m_isDotted = isDotted;
+    m_tie = tie;
+  }
+  public Note(Note note) {
+    m_pitch = note.getPitch();
+    m_alter = note.getAlter();
+    m_duration = note.getDuration();
+    m_type = note.getType();
+    m_isDotted = note.isDotted();
+    m_isRest = note.isRest();
+    m_tie = note.getTie();
   }
 
   public void setPitch(int pitch) {
@@ -174,6 +193,9 @@ public class Note {
   public void setIsRest(boolean isRest) {
     m_isRest = isRest;
   }
+  public void setTie(int tie) {
+    m_tie = tie;
+  }
 
   public int getDuration() {
     return m_duration;
@@ -187,11 +209,14 @@ public class Note {
   public String getType() {
     return m_type;
   }
-  public boolean getIsDotted() {
+  public boolean isDotted() {
     return m_isDotted;
   }
   public boolean isRest() {
     return m_isRest;
+  }
+  public int getTie() {
+    return m_tie;
   }
 
   public MusicXmlNode getMusicXmlNode() {
@@ -391,6 +416,17 @@ public class Note {
     MusicXmlNode duration = new MusicXmlNode("duration");
     duration.setText(Integer.toString(m_duration));
     node.addChild(duration);
+    
+    if (m_tie > TIE_NONE) {
+      MusicXmlNode tie = new MusicXmlNode("tie");
+      
+      if (m_tie == TIE_START)
+        tie.addAttribute("type", "start");
+      else
+        tie.addAttribute("type", "stop");
+      
+      node.addChild(tie);
+    }
 
     MusicXmlNode type = new MusicXmlNode("type");
     type.setText(m_type);
