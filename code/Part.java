@@ -136,56 +136,54 @@ public class Part {
     MusicXmlNode measure = new MusicXmlNode("measure");
     measure.addAttribute("number", Integer.toString(measureNo));
     
-    if (measureNo == 0) {
-      MusicXmlNode attributes = new MusicXmlNode("attributes");
+    MusicXmlNode attributes = new MusicXmlNode("attributes");
       
-      MusicXmlNode divisions = new MusicXmlNode("divisions");
-      divisions.setText(Integer.toString(m_measureDivisions));
-      attributes.addChild(divisions);
+    MusicXmlNode divisions = new MusicXmlNode("divisions");
+    divisions.setText(Integer.toString(m_measureDivisions));
+    attributes.addChild(divisions);
       
-      MusicXmlNode key = new MusicXmlNode("key");
-      MusicXmlNode fifths = new MusicXmlNode("fifths");
-      fifths.setText(Integer.toString(m_fifths));
-      key.addChild(fifths);
-      MusicXmlNode mode = new MusicXmlNode("mode");
-      if (m_isModeMajor)
-        mode.setText("major");
-      else
-        mode.setText("minor");
-      key.addChild(mode);
-      attributes.addChild(key);
+    MusicXmlNode key = new MusicXmlNode("key");
+    MusicXmlNode fifths = new MusicXmlNode("fifths");
+    fifths.setText(Integer.toString(m_fifths));
+    key.addChild(fifths);
+    MusicXmlNode mode = new MusicXmlNode("mode");
+    if (m_isModeMajor)
+      mode.setText("major");
+    else
+      mode.setText("minor");
+    key.addChild(mode);
+    attributes.addChild(key);
       
-      MusicXmlNode time = new MusicXmlNode("time");
-      MusicXmlNode beats = new MusicXmlNode("beats");
-      beats.setText(Integer.toString(m_beats));
-      time.addChild(beats);
-      MusicXmlNode beatType = new MusicXmlNode("beat-type");
-      beatType.setText(Integer.toString(m_beatType));
-      time.addChild(beatType);
-      attributes.addChild(time);
+    MusicXmlNode time = new MusicXmlNode("time");
+    MusicXmlNode beats = new MusicXmlNode("beats");
+    beats.setText(Integer.toString(m_beats));
+    time.addChild(beats);
+    MusicXmlNode beatType = new MusicXmlNode("beat-type");
+    beatType.setText(Integer.toString(m_beatType));
+    time.addChild(beatType);
+    attributes.addChild(time);
       
-      MusicXmlNode clef = new MusicXmlNode("clef");
-      MusicXmlNode sign = new MusicXmlNode("sign");
-      sign.setText(m_clefSign);
-      clef.addChild(sign);
-      MusicXmlNode line = new MusicXmlNode("line");
-      line.setText(Integer.toString(m_clefLine));
-      clef.addChild(line);
-      attributes.addChild(clef);
+    MusicXmlNode clef = new MusicXmlNode("clef");
+    MusicXmlNode sign = new MusicXmlNode("sign");
+    sign.setText(m_clefSign);
+    clef.addChild(sign);
+    MusicXmlNode line = new MusicXmlNode("line");
+    line.setText(Integer.toString(m_clefLine));
+    clef.addChild(line);
+    attributes.addChild(clef);
       
-      if (m_transposeChromatic != 0 || m_transposeDiatonic != 0) {
-        MusicXmlNode transpose = new MusicXmlNode("transpose");
-        MusicXmlNode diatonic = new MusicXmlNode("diatonic");
-        diatonic.setText(Integer.toString(m_transposeDiatonic));
-        transpose.addChild(diatonic);
-        MusicXmlNode chromatic = new MusicXmlNode("chromatic");
-        chromatic.setText(Integer.toString(m_transposeChromatic));
-        transpose.addChild(chromatic);
-        attributes.addChild(transpose);
-      }
-      
-      measure.addChild(attributes);
+    if (m_transposeChromatic != 0 || m_transposeDiatonic != 0) {
+      MusicXmlNode transpose = new MusicXmlNode("transpose");
+      MusicXmlNode diatonic = new MusicXmlNode("diatonic");
+      diatonic.setText(Integer.toString(m_transposeDiatonic));
+      transpose.addChild(diatonic);
+      MusicXmlNode chromatic = new MusicXmlNode("chromatic");
+      chromatic.setText(Integer.toString(m_transposeChromatic));
+      transpose.addChild(chromatic);
+      attributes.addChild(transpose);
     }
+      
+    measure.addChild(attributes);
 
     int notesTotalDuration = 0;
     int noteDuration;
@@ -203,6 +201,7 @@ public class Part {
         startNote.setDuration(m_measureDivisions - notesTotalDuration);
         startNote.setTie(Note.TIE_START);
         measure.addChild(startNote.getMusicXmlNode());
+        node.addChild(new MusicXmlNode(measure));
         
         System.out.println("::: DEBUG ::: cleaning attributes, with split");
         ++measureNo;
@@ -219,7 +218,7 @@ public class Part {
       }
       
       if (m_measureDivisions == notesTotalDuration) {
-        node.addChild(measure);
+        node.addChild(new MusicXmlNode(measure));
         notesTotalDuration = 0;
         ++measureNo;
         System.out.println("::: DEBUG ::: cleaning attributes");
@@ -229,7 +228,7 @@ public class Part {
       }
     }
 
-    node.addChild(measure);
+    node.addChild(new MusicXmlNode(measure));
 
     return node;
   }
