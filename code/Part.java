@@ -189,9 +189,6 @@ public class Part {
     int noteDuration;
 
     for (Note note : m_notes) {
-      System.out.println("::: DEBUG ::: notesTotalDuration: " +
-                         notesTotalDuration + " measureDivisions: " +
-                         m_measureDivisions);
       if (note.getDuration() + notesTotalDuration <= m_measureDivisions) {
         measure.addChild(note.getMusicXmlNode());
         notesTotalDuration += note.getDuration();
@@ -203,7 +200,6 @@ public class Part {
         measure.addChild(startNote.getMusicXmlNode());
         node.addChild(new MusicXmlNode(measure));
         
-        System.out.println("::: DEBUG ::: cleaning attributes, with split");
         ++measureNo;
         measure.clearAttributes();
         measure.clearChildren();
@@ -221,7 +217,7 @@ public class Part {
         node.addChild(new MusicXmlNode(measure));
         notesTotalDuration = 0;
         ++measureNo;
-        System.out.println("::: DEBUG ::: cleaning attributes");
+
         measure.clearAttributes();
         measure.clearChildren();
         measure.addAttribute("number", Integer.toString(measureNo));
