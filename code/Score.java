@@ -14,7 +14,7 @@ public class Score {
     m_composer = new String();
     m_rights = new String();
     m_software = new String();
-    
+    m_encodingDate = new String();
     m_parts = new LinkedList<Part>();
   }
   public Score(String title, String composer, String rights, String software, 
@@ -31,6 +31,7 @@ public class Score {
     m_composer = score.getComposer();
     m_rights = score.getRights();
     m_software = score.getSoftware();
+    m_encodingDate = score.getEncodingDate();
     m_parts = score.getParts();
   }
 
