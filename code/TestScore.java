@@ -16,16 +16,16 @@ public class TestScore {
     part.setInstrument("GrandPiano");
     part.setName("Piano");
     
-    Note note = new Note();
+    Note note = new Note(Note.PITCH_C4, 0, 3, "quarter", false, false,
+                         Note.TIE_NONE);
     part.addNote(note);
-    
-    Note note2 = new Note(Note.PITCH_G5S, 1, 4, "eigth", true, false, Note.TIE_NONE);
-    part.addNote(note2);
-    part.addNote(note2);
-    part.addNote(note2);
-    
-    Note note3 = new Note(true, 4, "eigth", true, Note.TIE_START);
-    part.addNote(note3);
+    part.addNote(note);
+    part.addNote(note);
+    part.addNote(note);
+    part.addNote(note);
+    part.addNote(note);
+    part.addNote(note);
+    part.addNote(note);
 
     score.addPart(part);
     

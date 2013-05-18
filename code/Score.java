@@ -7,7 +7,7 @@ public class Score {
   private String           m_software;
   private String           m_encodingDate;
   private LinkedList<Part> m_parts;
-  
+
   
   public Score() {
     m_title = new String();
