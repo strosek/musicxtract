@@ -115,9 +115,26 @@ public class Note {
   public static final int PITCH_A8 = 105;
   public static final int PITCH_A8S =106;
   public static final int PITCH_B8 = 107;
-  
-  
-  
+
+
+  public static final int TYPE_MAXIMA =            0;
+  public static final int TYPE_LONG =              1;
+  public static final int TYPE_LONG_DOTTED =       2;
+  public static final int TYPE_BREVE =             3;
+  public static final int TYPE_BREVE_DOTTED =      4;
+  public static final int TYPE_WHOLE =             5;
+  public static final int TYPE_WHOLE_DOTTED =      6;
+  public static final int TYPE_HALF =              7;
+  public static final int TYPE_HALF_DOTTED =       8;
+  public static final int TYPE_QUARTER =           9;
+  public static final int TYPE_QUARTER_DOTTED =   10;
+  public static final int TYPE_EIGHTH =           11;
+  public static final int TYPE_EIGHTH_DOTTED =    12;
+  public static final int TYPE_SIXTEENTH =        13;
+  public static final int TYPE_SIXTEENTH_DOTTED = 14;
+  public static final int TYPE_THIRTYSECOND =     15;
+
+
   public static final int TIE_NONE =  0;
   public static final int TIE_START = 1;
   public static final int TIE_STOP =  2;
