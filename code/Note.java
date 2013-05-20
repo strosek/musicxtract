@@ -117,22 +117,24 @@ public class Note {
   public static final int PITCH_B8 = 107;
 
 
-  public static final int TYPE_MAXIMA =            0;
-  public static final int TYPE_LONG =              1;
-  public static final int TYPE_LONG_DOTTED =       2;
-  public static final int TYPE_BREVE =             3;
-  public static final int TYPE_BREVE_DOTTED =      4;
-  public static final int TYPE_WHOLE =             5;
-  public static final int TYPE_WHOLE_DOTTED =      6;
-  public static final int TYPE_HALF =              7;
-  public static final int TYPE_HALF_DOTTED =       8;
-  public static final int TYPE_QUARTER =           9;
-  public static final int TYPE_QUARTER_DOTTED =   10;
-  public static final int TYPE_EIGHTH =           11;
-  public static final int TYPE_EIGHTH_DOTTED =    12;
-  public static final int TYPE_SIXTEENTH =        13;
-  public static final int TYPE_SIXTEENTH_DOTTED = 14;
-  public static final int TYPE_THIRTYSECOND =     15;
+  public static final int TYPE_MAXIMA =               0;
+  public static final int TYPE_LONG_DOTTED =          1;
+  public static final int TYPE_LONG =                 2;
+  public static final int TYPE_BREVE_DOTTED =         3;
+  public static final int TYPE_BREVE =                4;
+  public static final int TYPE_WHOLE_DOTTED =         5;
+  public static final int TYPE_WHOLE =                6;
+  public static final int TYPE_HALF_DOTTED =          7;
+  public static final int TYPE_HALF =                 8;
+  public static final int TYPE_QUARTER_DOTTED =       9;
+  public static final int TYPE_QUARTER =             10;
+  public static final int TYPE_EIGHTH_DOTTED =       11;
+  public static final int TYPE_EIGHTH =              12;
+  public static final int TYPE_SIXTEENTH_DOTTED =    13;
+  public static final int TYPE_SIXTEENTH =           14;
+  public static final int TYPE_THIRTYSECOND_DOTTED = 15;
+  public static final int TYPE_THIRTYSECOND =        16;
+  public static final int TYPE_SIXTYFOURTH =         17;
 
 
   public static final int TIE_NONE =  0;
