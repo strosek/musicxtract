@@ -11,8 +11,8 @@ public class TestScore {
     Part part = new Part();
     int partNo = 1;
     part.setId("P" + partNo);
-    part.setTransposeDiatonic(-1);
-    part.setTransposeChromatic(-2);
+    part.setTransposeDiatonic(0);
+    part.setTransposeChromatic(0);
     part.setInstrument("GrandPiano");
     part.setName("Piano");
     
