@@ -225,7 +225,14 @@ public class Part {
       }
       ++noteNo;
     }
-
+    
+    MusicXmlNode endBarline = new MusicXmlNode("barline");
+    endBarline.addAttribute("location", "right");
+    MusicXmlNode barStyle = new MusicXmlNode("bar-style");
+    barStyle.setText("light-heavy");
+    endBarline.addChild(barStyle);
+    measure.addChild(endBarline);
+    
     node.addChild(new MusicXmlNode(measure));
 
     return node;
