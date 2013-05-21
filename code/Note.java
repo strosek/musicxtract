@@ -115,6 +115,14 @@ public class Note {
   public static final int PITCH_A8 = 105;
   public static final int PITCH_A8S =106;
   public static final int PITCH_B8 = 107;
+  
+  public static final int STEP_C = 0;
+  public static final int STEP_D = 1;
+  public static final int STEP_E = 2;
+  public static final int STEP_F = 3;
+  public static final int STEP_G = 4;
+  public static final int STEP_A = 5;
+  public static final int STEP_B = 6;
 
 
   public static final int TYPE_MAXIMA =               0;
@@ -143,6 +151,8 @@ public class Note {
 
 
   private int     m_pitch;
+  private int     m_step;
+  private int     m_octave;
   private int     m_alter;
   private int     m_duration;
   private String  m_type;
@@ -152,7 +162,9 @@ public class Note {
 
   public Note() {
     m_pitch = PITCH_C4;
+    m_step = STEP_C;
     m_alter = 0;
+    m_octave = 4;
     m_duration = 0;
     m_type = "quarter";
     m_isDotted = false;
@@ -194,11 +206,17 @@ public class Note {
     else
       System.err.println("error: Note.setPitch(): pitch value out of range");
   }
+  public void setStep(int step) {
+    m_step = step;
+  }
   public void setAlter(int alter) {
     if (alter >= -2 && alter <= 2)
       m_alter = alter;
     else
       System.err.println("error: Note.setAlter(): alter value out of range");
+  }
+  public void setOctave(int octave) {
+    m_octave = octave;
   }
   public void setDuration(int duration) {
     m_duration = duration;
@@ -222,8 +240,14 @@ public class Note {
   public int getPitch() {
     return m_pitch;
   }
+  public int getStep() {
+    return m_step;
+  }
   public int getAlter() {
     return m_alter;
+  }
+  public int getOctave() {
+    return m_octave;
   }
   public String getType() {
     return m_type;
@@ -246,86 +270,27 @@ public class Note {
       MusicXmlNode pitch = new MusicXmlNode("pitch");
 
       MusicXmlNode step = new MusicXmlNode("step");
-      switch (m_pitch) {
-        case PITCH_C0 : case PITCH_C0S :
-        case PITCH_C1 : case PITCH_C1S :
-        case PITCH_C2 : case PITCH_C2S :
-        case PITCH_C3 : case PITCH_C3S :
-        case PITCH_C4 : case PITCH_C4S :
-        case PITCH_C5 : case PITCH_C5S :
-        case PITCH_C6 : case PITCH_C6S :
-        case PITCH_C7 : case PITCH_C7S :
-        case PITCH_C8 : case PITCH_C8S :
+      switch (m_step) {
+        case STEP_C :
           step.setText("C");
           break;
-        case PITCH_D0 : case PITCH_D0S :
-        case PITCH_D1 : case PITCH_D1S :
-        case PITCH_D2 : case PITCH_D2S :
-        case PITCH_D3 : case PITCH_D3S :
-        case PITCH_D4 : case PITCH_D4S :
-        case PITCH_D5 : case PITCH_D5S :
-        case PITCH_D6 : case PITCH_D6S :
-        case PITCH_D7 : case PITCH_D7S :
-        case PITCH_D8 : case PITCH_D8S :
+        case STEP_D :
           step.setText("D");
           break;
-        case PITCH_E0 :
-        case PITCH_E1 :
-        case PITCH_E2 :
-        case PITCH_E3 :
-        case PITCH_E4 :
-        case PITCH_E5 :
-        case PITCH_E6 :
-        case PITCH_E7 :
-        case PITCH_E8 :
+        case STEP_E :
           step.setText("E");
           break;
-        case PITCH_F0 : case PITCH_F0S :
-        case PITCH_F1 : case PITCH_F1S :
-        case PITCH_F2 : case PITCH_F2S :
-        case PITCH_F3 : case PITCH_F3S :
-        case PITCH_F4 : case PITCH_F4S :
-        case PITCH_F5 : case PITCH_F5S :
-        case PITCH_F6 : case PITCH_F6S :
-        case PITCH_F7 : case PITCH_F7S :
-        case PITCH_F8 : case PITCH_F8S :
+        case STEP_F :
           step.setText("F");
           break;
-        case PITCH_G0 : case PITCH_G0S :
-        case PITCH_G1 : case PITCH_G1S :
-        case PITCH_G2 : case PITCH_G2S :
-        case PITCH_G3 : case PITCH_G3S :
-        case PITCH_G4 : case PITCH_G4S :
-        case PITCH_G5 : case PITCH_G5S :
-        case PITCH_G6 : case PITCH_G6S :
-        case PITCH_G7 : case PITCH_G7S :
-        case PITCH_G8 : case PITCH_G8S :
+        case STEP_G :
           step.setText("G");
           break;
-        case PITCH_A0 : case PITCH_A0S :
-        case PITCH_A1 : case PITCH_A1S :
-        case PITCH_A2 : case PITCH_A2S :
-        case PITCH_A3 : case PITCH_A3S :
-        case PITCH_A4 : case PITCH_A4S :
-        case PITCH_A5 : case PITCH_A5S :
-        case PITCH_A6 : case PITCH_A6S :
-        case PITCH_A7 : case PITCH_A7S :
-        case PITCH_A8 : case PITCH_A8S :
+        case STEP_A :
           step.setText("A");
           break;
-        case PITCH_B0 :
-        case PITCH_B1 :
-        case PITCH_B2 :
-        case PITCH_B3 :
-        case PITCH_B4 :
-        case PITCH_B5 :
-        case PITCH_B6 :
-        case PITCH_B7 :
-        case PITCH_B8 :
+        case STEP_B :
           step.setText("B");
-          break;
-        default :
-          System.err.println("error: Note.buildMusicXmlNode(): Invalid pitch value");
           break;
       }
       pitch.addChild(step);
@@ -337,92 +302,7 @@ public class Note {
       }
 
       MusicXmlNode octave = new MusicXmlNode("octave");
-      switch (m_pitch) {
-        case PITCH_C0 : case PITCH_C0S :
-        case PITCH_D0 : case PITCH_D0S :
-        case PITCH_E0 :
-        case PITCH_F0 : case PITCH_F0S :
-        case PITCH_G0 : case PITCH_G0S :
-        case PITCH_A0 : case PITCH_A0S :
-        case PITCH_B0 :
-          octave.setText("0");
-          break;
-        case PITCH_C1 : case PITCH_C1S :
-        case PITCH_D1 : case PITCH_D1S :
-        case PITCH_E1 :
-        case PITCH_F1 : case PITCH_F1S :
-        case PITCH_G1 : case PITCH_G1S :
-        case PITCH_A1 : case PITCH_A1S :
-        case PITCH_B1 :
-          octave.setText("1");
-          break;
-        case PITCH_C2 : case PITCH_C2S :
-        case PITCH_D2 : case PITCH_D2S :
-        case PITCH_E2 :
-        case PITCH_F2 : case PITCH_F2S :
-        case PITCH_G2 : case PITCH_G2S :
-        case PITCH_A2 : case PITCH_A2S :
-        case PITCH_B2 :
-          octave.setText("2");
-          break;
-        case PITCH_C3 : case PITCH_C3S :
-        case PITCH_D3 : case PITCH_D3S :
-        case PITCH_E3 :
-        case PITCH_F3 : case PITCH_F3S :
-        case PITCH_G3 : case PITCH_G3S :
-        case PITCH_A3 : case PITCH_A3S :
-        case PITCH_B3 :
-          octave.setText("3");
-          break;
-        case PITCH_C4 : case PITCH_C4S :
-        case PITCH_D4 : case PITCH_D4S :
-        case PITCH_E4 :
-        case PITCH_F4 : case PITCH_F4S :
-        case PITCH_G4 : case PITCH_G4S :
-        case PITCH_A4 : case PITCH_A4S :
-        case PITCH_B4 :
-          octave.setText("4");
-          break;
-        case PITCH_C5 : case PITCH_C5S :
-        case PITCH_D5 : case PITCH_D5S :
-        case PITCH_E5 :
-        case PITCH_F5 : case PITCH_F5S :
-        case PITCH_G5 : case PITCH_G5S :
-        case PITCH_A5 : case PITCH_A5S :
-        case PITCH_B5 :
-          octave.setText("5");
-          break;
-        case PITCH_C6 : case PITCH_C6S :
-        case PITCH_D6 : case PITCH_D6S :
-        case PITCH_E6 :
-        case PITCH_F6 : case PITCH_F6S :
-        case PITCH_G6 : case PITCH_G6S :
-        case PITCH_A6 : case PITCH_A6S :
-        case PITCH_B6 :
-          octave.setText("6");
-          break;
-        case PITCH_C7 : case PITCH_C7S :
-        case PITCH_D7 : case PITCH_D7S :
-        case PITCH_E7 :
-        case PITCH_F7 : case PITCH_F7S :
-        case PITCH_G7 : case PITCH_G7S :
-        case PITCH_A7 : case PITCH_A7S :
-        case PITCH_B7 :
-          octave.setText("7");
-          break;
-        case PITCH_C8 : case PITCH_C8S :
-        case PITCH_D8 : case PITCH_D8S :
-        case PITCH_E8 :
-        case PITCH_F8 : case PITCH_F8S :
-        case PITCH_G8 : case PITCH_G8S :
-        case PITCH_A8 : case PITCH_A8S :
-        case PITCH_B8 :
-          octave.setText("8");
-          break;
-        default :
-          System.err.println("error: Note.buildMusicXmlNode(): Invalid pitch value");
-          break;
-      }
+      octave.setText(Integer.toString(m_octave));
       pitch.addChild(octave);
 
       node.addChild(pitch);
