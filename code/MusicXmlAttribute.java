@@ -1,3 +1,5 @@
+package tutorial.firstapp;
+
 public class MusicXmlAttribute {
   private String m_name;
   private String m_value;

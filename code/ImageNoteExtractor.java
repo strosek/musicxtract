@@ -1,11 +1,16 @@
+package tutorial.firstapp;
+
 import java.util.LinkedList;
+
+import android.graphics.Bitmap;
+import android.graphics.Color;
 
 
 public class ImageNoteExtractor {
   public static final int DETECT_MODE_VERTICAL =   0;
   public static final int DETECT_MODE_HORIZONTAL = 1;
   
-public static final int DETECT_TRESHOLD_DEFAULT = 100;
+  public static final int DETECT_TRESHOLD_DEFAULT = 100;
 
   public static final int VERTICAL_RESOLUTION_DEFAULT =    640;
   public static final int HORIZONTAL_RESOULUTION_DEFAULT = 380;
@@ -71,9 +76,8 @@ public static final int DETECT_TRESHOLD_DEFAULT = 100;
   public void computeEdges(Bitmap image) {
     int maxDeltaLuminosity = m_detectionTreshold;
     int position = -1;
-    int previousLuminosity, currentLuminosity, deltaLuminosity = 0;
-    Color color;
-    LinkedList<Integer> edges;
+    int previousLuminosity = 0, currentLuminosity = 0, deltaLuminosity = 0;
+    int color;
     
     int verticalLimit, horizontalLimit;
     if (m_detectMode == DETECT_MODE_VERTICAL) {
@@ -91,7 +95,7 @@ public static final int DETECT_TRESHOLD_DEFAULT = 100;
           color = image.getPixel(i, j);
         else
           color = image.getPixel(j, i);
-        currentLuminosity = color.red() + color.green() + color.blue();
+        currentLuminosity = Color.red(color) + Color.green(color) + Color.blue(color);
         if (i > 0 || j > 0)
           deltaLuminosity = Math.abs(previousLuminosity - currentLuminosity);
         else
@@ -109,7 +113,7 @@ public static final int DETECT_TRESHOLD_DEFAULT = 100;
   public LinkedList<Note> getNotes(Bitmap image) {
     computeEdges(image);
     
-    LinkedList<Note> notes;
+    LinkedList<Note> notes = new LinkedList<Note>();
     for (Integer edge : m_edges) {
       notes.add(m_noteFactory.newNote(edge, Note.TYPE_QUARTER, false));
     }

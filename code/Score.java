@@ -1,3 +1,5 @@
+package tutorial.firstapp;
+
 import java.util.LinkedList;
 
 public class Score {

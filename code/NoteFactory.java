@@ -1,3 +1,5 @@
+package tutorial.firstapp;
+
 public class NoteFactory {
   private int     m_lowestPitch;
   private int     m_highestPitch;

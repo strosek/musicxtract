@@ -1,3 +1,5 @@
+package tutorial.firstapp;
+
 import java.util.LinkedList;
 
 
@@ -186,7 +188,6 @@ public class Part {
     measure.addChild(attributes);
 
     int notesTotalDuration = 0;
-    int noteDuration;
     int noteNo = 1;
 
     for (Note note : m_notes) {
